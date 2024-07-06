@@ -142,6 +142,7 @@ export default defineComponent({
 
     function send(file: UploadRawFile, sendFiles?: File[]) {
       const {
+        type,
         headers,
         header,
         data,
@@ -158,6 +159,7 @@ export default defineComponent({
 
       const { uid } = file;
       const options: UploadRequestOptions = {
+        type,
         headers,
         header,
         withCredentials,

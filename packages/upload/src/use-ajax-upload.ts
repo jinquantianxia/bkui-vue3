@@ -49,7 +49,9 @@ export const ajaxUpload: UploadRequestHandler = (option) => {
   }
 
   const xhr = new XMLHttpRequest();
-  const { action } = option;
+  const { action, type } = option;
+
+  const isFormdata = type === 'formdata';
 
   if (xhr.upload) {
     xhr.upload.addEventListener('progress', (event) => {
@@ -61,7 +63,7 @@ export const ajaxUpload: UploadRequestHandler = (option) => {
 
   const formData = new FormData();
 
-  if (option.data) {
+  if (isFormdata && option.data) {
     let appendData = option.data;
     if (!Array.isArray(appendData)) {
       appendData = [appendData];
@@ -74,7 +76,7 @@ export const ajaxUpload: UploadRequestHandler = (option) => {
     });
   }
 
-  if (option.formDataAttributes) {
+  if (isFormdata && option.formDataAttributes) {
     let appendData = option.formDataAttributes;
     if (!Array.isArray(appendData)) {
       appendData = [appendData];
@@ -85,7 +87,9 @@ export const ajaxUpload: UploadRequestHandler = (option) => {
     });
   }
 
-  formData.append(option.filename, option.file, option.file.name);
+  if (isFormdata) {
+    formData.append(option.filename, option.file, option.file.name);
+  }
 
   xhr.addEventListener('error', () => {
     option.onError(new Error('An error occurred during upload'));
@@ -132,7 +136,7 @@ export const ajaxUpload: UploadRequestHandler = (option) => {
     }
   }
 
-  xhr.send(formData);
+  xhr.send(isFormdata ? formData : option.file);
   return xhr;
 };
 

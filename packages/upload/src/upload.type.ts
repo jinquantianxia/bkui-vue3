@@ -38,6 +38,13 @@ export const enum EThemes {
 
 export type Theme = Lowercase<keyof typeof EThemes>;
 
+export const enum ETypes {
+  FORMDATA = 'formdata',
+  BINARY = 'binary',
+}
+
+export type Type = Lowercase<keyof typeof ETypes>;
+
 export const enum EUploadStatus {
   NEW = 'new',
   UPLOADING = 'uploading',
@@ -94,6 +101,7 @@ export type UploadProps = ExtractPropTypes<typeof uploadProps>;
 export interface UploadRequestOptions {
   action: string
   method: string
+  type: Type,
   data?: ExtraFormData | ExtraFormData[]
   formDataAttributes?: FormDataAttr | FormDataAttr[]
   filename: string

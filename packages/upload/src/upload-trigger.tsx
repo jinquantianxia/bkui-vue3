@@ -219,7 +219,6 @@ export default defineComponent({
         {!props.disabled && (
           <div class={`${classBlock}__picture-actions`}>
             {/* { file.status !== 'uploading' && <Upload class="action-icon" /> } */}
-            {isShowPreview.value}
             {isShowPreview.value && (
               <Eye
                 class='action-icon'

@@ -121,8 +121,8 @@ export default defineComponent({
       e.preventDefault();
     }
 
-    function handleReview(file: UploadFile, e: MouseEvent) {
-      emit('preview', file, e);
+    function handlePreview(file: UploadFile, e: MouseEvent) {
+      emit('preview', file, [file], e);
 
       e.stopPropagation();
       e.preventDefault();
@@ -222,7 +222,7 @@ export default defineComponent({
             {isShowPreview.value && (
               <Eye
                 class='action-icon'
-                onClick={e => handleReview(file, e)}
+                onClick={e => handlePreview(file, e)}
               />
             )}
             <Del

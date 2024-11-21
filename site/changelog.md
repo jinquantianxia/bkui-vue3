@@ -1,6 +1,13 @@
 ## 更新日志
 
 
+### 2.0.1-beta.82
+
+* **[feat]**:
+    - feature: upload组件picture模式增加预览效果
+    - fix(search-select): 修复在vue@v3.5.x后展示问题
+
+
 ### 2.0.1-beta.80
 
 * **[feat]**:

@@ -794,8 +794,8 @@ export default defineComponent({
         } else {
           const isObject = typeof item === 'object';
           newValue = isObject ? item[saveKey] : item.trim();
-          newValue = newValue.replace(/\s+/g, '');
-          if (newValue !== undefined && !tagList.value.includes(newValue) && validateTag(newValue)) {
+          // newValue = newValue.replace(/\s+/g, '');
+          if (!!newValue && !tagList.value.includes(newValue) && validateTag(newValue)) {
             const localItem =
               saveKeyMap.value[newValue] || (isObject ? item : { [saveKey]: newValue, [displayKey]: newValue });
             listState.selectedTagList.splice(targetIndex, 0, localItem);

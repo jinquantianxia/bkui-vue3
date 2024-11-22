@@ -32,7 +32,7 @@ import Progress from '@bkui-vue/progress';
 import { classes } from '@bkui-vue/shared';
 
 import uploadProps from './props';
-import { CLASS_PREFIX, EThemes, UploadFile } from './upload.type';
+import { CLASS_PREFIX, EThemes, UploadFile, UploadFiles } from './upload.type';
 
 export default defineComponent({
   name: 'UploadList',
@@ -70,7 +70,7 @@ export default defineComponent({
       return `${size.toFixed(2)}${uints[index]}`;
     }
 
-    function handlePreview(file: UploadFile, files: UploadFile[], e: MouseEvent) {
+    function handlePreview(file: UploadFile, files: UploadFiles, e: MouseEvent) {
       emit('preview', file, files, e);
     }
 

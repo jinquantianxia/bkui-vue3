@@ -772,7 +772,8 @@ export default defineComponent({
         }
         return true;
       };
-
+      const isObject = typeof item === 'object';
+      newValue = isObject ? item[saveKey] : item.trim();
       // 自定义
       if (type === 'custom') {
         // 自定义时，如果配置分隔符可以一次性输入多个值
@@ -792,8 +793,6 @@ export default defineComponent({
             isSelected = true;
           }
         } else {
-          const isObject = typeof item === 'object';
-          newValue = isObject ? item[saveKey] : item.trim();
           // newValue = newValue.replace(/\s+/g, '');
           if (!!newValue && !tagList.value.includes(newValue) && validateTag(newValue)) {
             const localItem =
@@ -803,8 +802,7 @@ export default defineComponent({
           }
         }
       } else if (item) {
-        newValue = item[saveKey];
-        if (newValue !== undefined && !tagList.value.includes(newValue)) {
+        if (!!newValue && !tagList.value.includes(newValue)) {
           listState.selectedTagList.splice(targetIndex, 0, item);
           isSelected = true;
         }

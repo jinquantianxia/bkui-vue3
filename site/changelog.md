@@ -1,6 +1,12 @@
 ## 更新日志
 
 
+### 2.0.1-beta.83
+
+* **[feat]**:
+    - bugfix(collapse): modelValue设置为空时，面板无法收起
+
+
 ### 2.0.1-beta.82
 
 * **[feat]**:

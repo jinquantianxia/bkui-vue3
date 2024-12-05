@@ -70,6 +70,7 @@ export default defineComponent({
     scrollHeight: PropTypes.number.def(204), // 最大高度
     minHeight: PropTypes.number, // 最小高度
     showAll: PropTypes.bool.def(false), // 全部
+    allOptionText: PropTypes.string.def(''), // 全部选项文本
     allOptionId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // 全部选项ID
     showSelectAll: PropTypes.bool.def(false), // 全选
     popoverMinWidth: PropTypes.number.def(0), // popover最小宽度
@@ -165,6 +166,9 @@ export default defineComponent({
     } = toRefs(props);
 
     const virtualRenderRef = ref(null);
+    const displayAllText = computed(() => {
+      return props.allOptionText;
+    });
     const localNoDataText = computed(() => {
       if (props.noDataText === undefined) {
         return t.value.noData;
@@ -850,6 +854,7 @@ export default defineComponent({
       popoverConfig,
       isAllSelected,
       isAll,
+      displayAllText,
       focusInput,
       setHover,
       cancelHover,
@@ -950,6 +955,14 @@ export default defineComponent({
         </li>
       );
     };
+    // 全部icon支持自定义
+    const renderAllIcon = () => {
+      return this.$slots?.allOptionIcon?.() || <TextAll class='select-all-icon' />;
+    };
+    // 全部选项文案支持自定义
+    const renderAllText = () => {
+      return <span>{this.displayAllText || this.t.all}</span>;
+    };
     // 全部
     const renderAll = () => {
       if (!this.isShowAll) return;
@@ -962,8 +975,8 @@ export default defineComponent({
             ]}
             onClick={this.toggleAll}
           >
-            <TextAll class='select-all-icon' />
-            <span>{this.t.all}</span>
+            {renderAllIcon()}
+            {renderAllText()}
           </div>
         </div>
       );

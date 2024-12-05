@@ -28,7 +28,9 @@
 
 <script setup>
   import { ref } from 'vue';
+
   import BkUpload from '@bkui-vue/upload';
+
   import babyImgUrl from '../../../imgs/babyq.png';
   import dovImgUlr from '../../../imgs/dov.png';
   import qqImageUrl from '../../../imgs/qq.png';

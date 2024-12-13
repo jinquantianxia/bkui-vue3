@@ -480,10 +480,10 @@ export default defineComponent({
      * @param item tag data
      * @param type emit type
      */
-    const handleTagSelected = (item: Record<string, unknown> | string, type: string, e?: Event) => {
+    const handleTagSelected = (item, type: string, e?: Event) => {
       e?.stopPropagation();
       // 如果 item 不存在（备选项中没有包含输入的字母的情况即输入关键字没有备选项出现的情况）或者选中标签所在组是禁用状态，返回
-      if (!item || (typeof item === 'object' && item.disabled)) {
+      if (!item || item.disabled) {
         return;
       }
       // 如果是单选，清空上一次缓存结果
@@ -752,33 +752,31 @@ export default defineComponent({
       popoverProps.isShow && changePopoverOffset();
     };
 
-    const validateTag = (value: string): boolean => {
-      if (typeof props?.createTagValidator === 'function') {
-        return props?.createTagValidator(value);
-      }
-      return true;
-    };
-
     /**
      * add tag
-     * @param {Object | string} item custom模式输出的是inputValue, select是Array<Object>
-     * @param {string} type custom、select两种枚举类型，且select模式存在不同数据源自定义对象属性场景，所以需要区分下
+     * @param item current tag data
+     * @param type operation type
      */
-    const addTag = (item: Record<string, unknown> | string, type: string) => {
-      const { maxData, separator, saveKey, displayKey } = props;
+    const addTag = (item, type: string) => {
       // 不允许超过最大可选数量
-      if (listState.selectedTagList.length >= maxData && maxData !== -1) return;
+      if (listState.selectedTagList.length >= props.maxData && props.maxData !== -1) return;
 
+      const { separator, saveKey, displayKey, createTagValidator, clearTextSpace } = props;
       const targetIndex = getTagInputItemSite();
-      const isObject = typeof item === 'object';
       let moveCount = 1;
       let isSelected = false;
-      let newValue = isObject ? item[saveKey] : item.trim();
-      const isExistTag = !!newValue && !tagList.value.includes(newValue);
+      let newValue;
+      const validateTag = (value: string): boolean => {
+        if (typeof createTagValidator === 'function') {
+          return createTagValidator(value);
+        }
+        return true;
+      };
+
       // 自定义
       if (type === 'custom') {
         // 自定义时，如果配置分隔符可以一次性输入多个值
-        if (separator && typeof item === 'string') {
+        if (separator) {
           let tags = item.split(separator);
           tags = tags.filter(tag => tag?.trim() && !tagList.value.includes(tag) && validateTag(tag));
           const localTags = tags.map(
@@ -794,17 +792,21 @@ export default defineComponent({
             isSelected = true;
           }
         } else {
-          // newValue = newValue.replace(/\s+/g, '');
-          let strValue = newValue as string;
-          if (isExistTag && validateTag(strValue)) {
+          const isObject = typeof item === 'object';
+          newValue = isObject ? item[saveKey] : item.trim();
+          if (clearTextSpace) {
+            newValue = newValue.replace(/\s+/g, '');
+          }
+          if (newValue !== undefined && !tagList.value.includes(newValue) && validateTag(newValue)) {
             const localItem =
-              saveKeyMap.value[strValue] || (isObject ? item : { [saveKey]: strValue, [displayKey]: strValue });
+              saveKeyMap.value[newValue] || (isObject ? item : { [saveKey]: newValue, [displayKey]: newValue });
             listState.selectedTagList.splice(targetIndex, 0, localItem);
             isSelected = true;
           }
         }
-      } else {
-        if (!!item && isExistTag) {
+      } else if (item) {
+        newValue = item[saveKey];
+        if (newValue !== undefined && !tagList.value.includes(newValue)) {
           listState.selectedTagList.splice(targetIndex, 0, item);
           isSelected = true;
         }

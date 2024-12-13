@@ -1,6 +1,14 @@
 ## 更新日志
 
 
+### 2.0.1-beta.84
+
+* **[feat]**:
+    - perf(datePicker|timePicker): 新增 blur,focus 事件
+    - bugfix(timeline|container): 组件重复注册
+    - bugfix(tagInput): 自定义标签支持配置字符中间存在空格
+
+
 ### 2.0.1-beta.83
 
 * **[feat]**:

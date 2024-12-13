@@ -761,7 +761,7 @@ export default defineComponent({
       // 不允许超过最大可选数量
       if (listState.selectedTagList.length >= props.maxData && props.maxData !== -1) return;
 
-      const { separator, saveKey, displayKey, createTagValidator } = props;
+      const { separator, saveKey, displayKey, createTagValidator, clearTextSpace } = props;
       const targetIndex = getTagInputItemSite();
       let moveCount = 1;
       let isSelected = false;
@@ -794,7 +794,9 @@ export default defineComponent({
         } else {
           const isObject = typeof item === 'object';
           newValue = isObject ? item[saveKey] : item.trim();
-          newValue = newValue.replace(/\s+/g, '');
+          if (clearTextSpace) {
+            newValue = newValue.replace(/\s+/g, '');
+          }
           if (newValue !== undefined && !tagList.value.includes(newValue) && validateTag(newValue)) {
             const localItem =
               saveKeyMap.value[newValue] || (isObject ? item : { [saveKey]: newValue, [displayKey]: newValue });

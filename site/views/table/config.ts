@@ -35,7 +35,7 @@ export default [
         desc: '默认行高, 用于默认设置,(Table.minHeight = LINE_HEIGHT * 2, Table.rowHeight = LINE_HEIGHT, Table.headHeight = LINE_HEIGHT, Table.thead.height=LINE_HEIGHT)，可以通过具体属性配置进行覆盖',
         optional: [],
       },
-      { name: 'SCROLLY_WIDTH', type: 'Number', default: '4', desc: '默认滚动条样式宽度', optional: [] },
+      { name: 'SCROLLY_WIDTH', type: 'Number', default: '8', desc: '默认滚动条样式宽度', optional: [] },
       {
         name: 'COL_MIN_WIDTH',
         type: 'Number',

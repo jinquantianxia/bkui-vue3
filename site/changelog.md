@@ -1,6 +1,14 @@
 ## 更新日志
 
 
+### 2.0.1-beta.85
+
+* **[feat]**:
+    - feature(select): 【全部】选项文案需要支持自定义([#2212](https://github.com/TencentBlueKing/bkui-vue3/issues/2212))
+    - feature: upload组件预览事件提供文件列表数据([#2203](https://github.com/TencentBlueKing/bkui-vue3/issues/2203))
+    - fix: table设置固定右对齐默认有padding会导致header与内容区域无法左对齐([#2217](https://github.com/TencentBlueKing/bkui-vue3/issues/2217))
+
+
 ### 2.0.1-beta.84
 
 * **[feat]**:

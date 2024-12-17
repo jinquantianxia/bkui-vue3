@@ -123,8 +123,8 @@ export default defineComponent({
       }
     }
 
-    function handlePreview(file: UploadFile) {
-      emit('preview', file);
+    function handlePreview(file: UploadFile, files?: UploadFile[]) {
+      emit('preview', file, files);
     }
 
     function handleRetry(file: UploadFile) {

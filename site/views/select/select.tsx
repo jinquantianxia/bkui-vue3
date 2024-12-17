@@ -134,6 +134,13 @@ const propsJson: IPropsTableItem[] = [
     optional: ['true', 'false'],
   },
   {
+    name: 'allOptionText',
+    type: 'string',
+    default: '全部',
+    desc: 'showAll为true时，全部选项的文本内容',
+    optional: [],
+  },
+  {
     name: 'allOptionId',
     type: 'string|number',
     default: '',
@@ -488,6 +495,12 @@ const selectSlots = [
     type: 'Slot',
     default: null,
     desc: '标签内容插槽（multiple-mode=“tag” 生效）',
+  },
+  {
+    name: 'allOptionIcon',
+    type: 'Slot',
+    default: null,
+    desc: '全部选项icon插槽（showAll=true时生效）',
   },
 ];
 const selectExpose = [

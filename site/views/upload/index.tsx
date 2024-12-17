@@ -255,6 +255,13 @@ const uploadEvents: IPropsTableItem[] = [
     desc: '文件上传成功后，点击删除文件触发的事件	',
     optional: ['file（删除的哪个文件对象）', 'fileList（删除后的文件列表）'],
   },
+  {
+    name: 'preview',
+    type: 'Function',
+    default: null,
+    desc: '文件上传成功后，点击预览文件触发的事件	',
+    optional: ['file（预览的哪个文件对象）', 'fileList（预览的文件列表）'],
+  },
 ];
 
 const uploadSlots: IPropsTableItem[] = [

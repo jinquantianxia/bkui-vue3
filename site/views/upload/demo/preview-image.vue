@@ -4,7 +4,7 @@
       :files="files"
       :handle-res-code="handleRes"
       :is-show-preview="true"
-      :multiple="false"
+      :multiple="true"
       :url="'https://jsonplaceholder.typicode.com/posts/'"
       theme="picture"
       with-credentials
@@ -31,11 +31,22 @@
 
   import BkUpload from '@bkui-vue/upload';
 
-  import babyqImgUrl from '../../../imgs/babyq.png';
+  import babyImgUrl from '../../../imgs/babyq.png';
+  import dovImgUlr from '../../../imgs/dov.png';
+  import qqImageUrl from '../../../imgs/qq.png';
 
   const files = ref([
     {
-      url: babyqImgUrl,
+      name: 'baby',
+      url: babyImgUrl,
+    },
+    {
+      name: 'qq',
+      url: qqImageUrl,
+    },
+    {
+      name: 'dov',
+      url: dovImgUlr,
     },
   ]);
   const previewTitle = ref('图片预览');
@@ -53,13 +64,13 @@
     return false;
   };
 
-  const handlePreview = async file => {
+  const handlePreview = async (file, fileList) => {
     if (!file.url) {
       file.url = await getBase64(file);
     }
     previewImage.value = file.url;
-    previewVisible.value = true;
     previewTitle.value = file.name || file.url.substring(file.url.lastIndexOf('/') + 1);
+    previewVisible.value = true;
   };
 
   const getBase64 = file => {

@@ -32,7 +32,7 @@ import Progress from '@bkui-vue/progress';
 import { classes } from '@bkui-vue/shared';
 
 import uploadProps from './props';
-import { CLASS_PREFIX, EThemes, UploadFile } from './upload.type';
+import { CLASS_PREFIX, EThemes, UploadFile, UploadFiles } from './upload.type';
 
 export default defineComponent({
   name: 'UploadList',
@@ -70,8 +70,8 @@ export default defineComponent({
       return `${size.toFixed(2)}${uints[index]}`;
     }
 
-    function handleReview(file: UploadFile, e: MouseEvent) {
-      emit('preview', file, e);
+    function handlePreview(file: UploadFile, files: UploadFiles, e: MouseEvent) {
+      emit('preview', file, files, e);
     }
 
     function handleRemove(file: UploadFile, e: MouseEvent) {
@@ -128,7 +128,7 @@ export default defineComponent({
             {isShowPreview.value && (
               <Eye
                 class='action-icon'
-                onClick={e => handleReview(file, e)}
+                onClick={e => handlePreview(file, props.files, e)}
               />
             )}
             <Del
